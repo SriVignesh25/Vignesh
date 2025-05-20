@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+    <style>
+        /* Custom CSS for the message box */
+        #message-box {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #f0fdf4;
+            color: #15803d;
+            padding: 16px;
+            border-radius: 6px;
+            border: 1px solid #16a34a;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+        #message-box.show {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-inter">
+    <div class="container mx-auto p-4 md:p-6 lg:p-8">
+        <h1 class="text-3xl font-semibold text-blue-600 text-center mb-6">Currency Converter</h1>
+
+        <div id="message-box" class="hidden"></div>
+
+        <div class="bg-white shadow-md rounded-lg p-4 md:p-6 mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="from-currency" class="block text-gray-700 text-sm font-bold mb-2">From Currency:</label>
+                    <select id="from-currency" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="USD">United States Dollar</option>
+                        <option value="EUR">Euro</option>
+                        <option value="GBP">United Kingdom Pound</option>
+                        <option value="JPY">Japan Yen</option>
+                        <option value="CAD">Canada Dollar</option>
+                        <option value="AUD">Australia Dollar</option>
+                        <option value="CHF">Switzerland Franc</option>
+                        <option value="CNY">China Yuan Renminbi</option>
+                        <option value="INR">India Rupee</option>
+                        <option value="BRL">Brazil Real</option>
+                        <option value="RUB">Russia Ruble</option>
+                        <option value="ZAR">South Africa Rand</option>
+                        <option value="KRW">South Korea Won</option>
+                        <option value="MXN">Mexico Peso</option>
+                        <option value="SGD">Singapore Dollar</option>
+                        <option value="HKD">Hong Kong Dollar</option>
+                        <option value="SEK">Sweden Krona</option>
+                        <option value="NZD">New Zealand Dollar</option>
+                        <option value="TRY">Turkey Lira</option>
+                        <option value="AED">United Arab Emirates Dirham</option>
+                        <option value="ARS">Argentina Peso</option>
+                        <option value="CLP">Chile Peso</option>
+                        <option value="COP">Colombia Peso</option>
+                        <option value="DKK">Denmark Krone</option>
+                        <option value="IDR">Indonesia Rupiah</option>
+                        <option value="ILS">Israel Shekel</option>
+                        <option value="MYR">Malaysia Ringgit</option>
+                        <option value="NOK">Norway Krone</option>
+                        <option value="PHP">Philippines Peso</option>
+                        <option value="PLN">Poland Zloty</option>
+                        <option value="SAR">Saudi Arabia Riyal</option>
+                        <option value="THB">Thailand Baht</option>
+                        <option value="TWD">Taiwan New Dollar</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="to-currency" class="block text-gray-700 text-sm font-bold mb-2">To Currency:</label>
+                    <select id="to-currency" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="USD">United States Dollar</option>
+                        <option value="EUR">Euro</option>
+                        <option value="GBP">United Kingdom Pound</option>
+                        <option value="JPY">Japan Yen</option>
+                        <option value="CAD">Canada Dollar</option>
+                        <option value="AUD">Australia Dollar</option>
+                        <option value="CHF">Switzerland Franc</option>
+                        <option value="CNY">China Yuan Renminbi</option>
+                        <option value="INR">India Rupee</option>
+                        <option value="BRL">Brazil Real</option>
+                         <option value="RUB">Russia Ruble</option>
+                        <option value="ZAR">South Africa Rand</option>
+                        <option value="KRW">South Korea Won</option>
+                        <option value="MXN">Mexico Peso</option>
+                        <option value="SGD">Singapore Dollar</option>
+                        <option value="HKD">Hong Kong Dollar</option>
+                        <option value="SEK">Sweden Krona</option>
+                        <option value="NZD">New Zealand Dollar</option>
+                        <option value="TRY">Turkey Lira</option>
+                        <option value="AED">United Arab Emirates Dirham</option>
+                        <option value="ARS">Argentina Peso</option>
+                        <option value="CLP">Chile Peso</option>
+                        <option value="COP">Colombia Peso</option>
+                        <option value="DKK">Denmark Krone</option>
+                        <option value="IDR">Indonesia Rupiah</option>
+                        <option value="ILS">Israel Shekel</option>
+                        <option value="MYR">Malaysia Ringgit</option>
+                        <option value="NOK">Norway Krone</option>
+                        <option value="PHP">Philippines Peso</option>
+                        <option value="PLN">Poland Zloty</option>
+                        <option value="SAR">Saudi Arabia Riyal</option>
+                        <option value="THB">Thailand Baht</option>
+                        <option value="TWD">Taiwan New Dollar</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mt-4">
+                <label for="amount" class="block text-gray-700 text-sm font-bold mb-2">Amount:</label>
+                <input type="number" id="amount" placeholder="Enter amount" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="100">
+            </div>
+            <div class="mt-6">
+                <button id="convert-button" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full">Convert</button>
+            </div>
+            <div id="result" class="mt-6 text-center text-xl font-semibold text-gray-800">
+                Result: 0.00
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const fromCurrencySelect = document.getElementById('from-currency');
+        const toCurrencySelect = document.getElementById('to-currency');
+        const amountInput = document.getElementById('amount');
+        const convertButton = document.getElementById('convert-button');
+        const resultDisplay = document.getElementById('result');
+        const messageBox = document.getElementById('message-box');
+
+        const exchangeRates = {
+            "USD": 1,
+            "EUR": 0.85,
+            "GBP": 0.75,
+            "JPY": 110.50,
+            "CAD": 1.25,
+            "AUD": 1.35,
+            "CHF": 0.95,
+            "CNY": 6.45,
+            "INR": 74.50,
+            "BRL": 5.25,
+            "RUB": 73.50,
+            "ZAR": 15.75,
+            "KRW": 1150.00,
+            "MXN": 20.00,
+            "SGD": 1.34,
+            "HKD": 7.76,
+            "SEK": 8.50,
+            "NZD": 1.45,
+            "TRY": 8.30,
+            "AED": 3.67,
+            "ARS": 95.00,
+            "CLP": 800.00,
+            "COP": 3750.00,
+            "DKK": 6.30,
+            "IDR": 14350.00,
+            "ILS": 3.25,
+            "MYR": 4.15,
+            "NOK": 8.80,
+            "PHP": 50.00,
+            "PLN": 3.80,
+            "SAR": 3.75,
+            "THB": 31.00,
+            "TWD": 28.00,
+        };
+
+        function convertCurrency() {
+            const fromCurrency = fromCurrencySelect.value;
+            const toCurrency = toCurrencySelect.value;
+            const amount = parseFloat(amountInput.value);
+
+            if (isNaN(amount) || amount <= 0) {
+                showMessage('Please enter a valid amount.');
+                return;
+            }
+
+            if (!exchangeRates[fromCurrency] || !exchangeRates[toCurrency]) {
+                showMessage('Invalid currency selection.');
+                return;
+            }
+
+            const fromRate = exchangeRates[fromCurrency];
+            const toRate = exchangeRates[toCurrency];
+            const result = (amount / fromRate) * toRate;
+
+            resultDisplay.textContent = `${result.toFixed(2)} ${toCurrency}`;
+            showMessage('Conversion successful!');
+        }
+
+        function showMessage(message) {
+            messageBox.textContent = message;
+            messageBox.classList.add('show');
+            setTimeout(() => {
+                messageBox.classList.remove('show');
+            }, 3000);
+        }
+
+        convertButton.addEventListener('click', convertCurrency);
+    </script>
+</body>
+</html>
